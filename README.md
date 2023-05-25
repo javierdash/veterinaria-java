@@ -1,9 +1,8 @@
 
-##Probando el Readme del proyecto de veterinaria
+##Proyecto de veterinaria
 
-**Utilizando markdown**
+**Primera parte**
 
-- Veamos si lo toma:
+- Alta de registros
 
-[markdown cheat-sheet] (https://www.markdownguide.org/cheat-sheet/)
 
