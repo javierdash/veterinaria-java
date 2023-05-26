@@ -1,9 +1,8 @@
 
-##Probando el Readme del proyecto de veterinaria
+## 2da parte
 
-**Utilizando markdown**
+**Vista de datos en la tabla**
 
-- Veamos si lo toma:
+- Eliminación de registros
 
-[markdown cheat-sheet] (https://www.markdownguide.org/cheat-sheet/)
 
