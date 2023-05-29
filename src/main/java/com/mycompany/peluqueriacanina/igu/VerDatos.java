@@ -155,29 +155,61 @@ public class VerDatos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        if(tablaMascotas.getRowCount() > 0) {
+            if(tablaMascotas.getSelectedRow() != -1) {
+            //obtengo id de la mascota a editar    
+            int num_cliente = Integer.parseInt(String.valueOf(tablaMascotas.getValueAt(tablaMascotas.getSelectedRow(), 0))); 
+            
+            ModificarDatos pantallaModif = new ModificarDatos(num_cliente);
+            pantallaModif.setVisible(true);
+            pantallaModif.setLocationRelativeTo(null);
+            
+            this.dispose();
+                
+            } else mostrarMensaje("selecciona uno primero", "error", "no eliminado");
+        } else mostrarMensaje("no hay nada para eliminar en la tabla", "error", "no eliminado");
+
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
-
+      
         if(tablaMascotas.getRowCount() > 0) {
             if(tablaMascotas.getSelectedRow() != -1) {
                int num_cliente = Integer.parseInt(String.valueOf(tablaMascotas.getValueAt(tablaMascotas.getSelectedRow(), 0))); 
                control.borrarMascota(num_cliente);
-            }
-        }
-
-        //luego de eliminar, muestra mensaje de elminado!
-        JOptionPane optionPane = new JOptionPane("REGISTRO ELIMINADO CORRECTAMENTE!!!");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("eliminación exitosa");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
-        
+            
+                mostrarMensaje("eliminado correctamente", "info", "se eliminó");
+     
         cargarTabla();
-        
+            }
+                //si no seleccionó ninguna:
+                mostrarMensaje("selecciona uno primero", "error", "no eliminado");
+            
+        }
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
+    
+    //creamos método nuevo
+    public void mostrarMensaje(String mensaje, String tipo, String titulo) {
+        
+        JOptionPane optionPane = new JOptionPane(mensaje);
+
+        if(tipo.equals("info")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if(tipo.equals("error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+            
+            JDialog dialog = optionPane.createDialog(titulo);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+    };
+    
+    
+    
+    
+    
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        
         //llama la método cargarTabla que no existe aun
@@ -197,7 +229,7 @@ public class VerDatos extends javax.swing.JFrame {
     private javax.swing.JTable tablaMascotas;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarTabla() {
+    public void cargarTabla() {
 
         //definir el modelo que queremos que tenga la tabla
         DefaultTableModel modeloTabla = new DefaultTableModel() {
@@ -216,7 +248,7 @@ public class VerDatos extends javax.swing.JFrame {
       
         //carga de los datos desde la base de datos
         List <Mascotas> listaMascotas = control.traerMascotas();
-        
+                
         //recorrer la lista y mostrar c/u de los elementos en la tabla
         //primero preguntar si es null para no recorrerla en ese caso
         if(listaMascotas != null) {
